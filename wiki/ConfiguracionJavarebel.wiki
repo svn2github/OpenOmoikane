@@ -1,4 +1,4 @@
-#summary prueba
+#summary Cómo configurar javarebel para recompilar en caliente (sin cerrar el programa que se está probando y aplicar de inmediato los cambios al código)
 #labels Phase-Implementation
 
 = Cómo configurar javarebel en netbeans =
