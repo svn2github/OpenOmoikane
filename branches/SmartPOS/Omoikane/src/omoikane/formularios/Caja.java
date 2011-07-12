@@ -1,0 +1,548 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * Caja.java
+ * Created on 8/12/2008, 10:47:24 PM
+ */
+
+package omoikane.formularios;
+
+import java.awt.image.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.*;
+import javax.swing.table.*;
+
+/*
+ * @author Usuario
+ */
+
+public class Caja extends javax.swing.JInternalFrame {
+
+    BufferedImage          fondo;
+    DefaultTableModel      modelo;
+    Double                 impuestos = 0.0;
+    Double                 totalOriginal = 0.0;
+    /** Creates new form Caja */
+
+    public Caja() {
+        initComponents();
+        programarShortcuts();
+        this.setOpaque(false);
+        ((JPanel)this.getContentPane()).setOpaque(false);
+        this.getLayeredPane().setOpaque(false);
+        this.getRootPane().setOpaque(false);
+        this.generarFondo(this);
+        modelo = (DefaultTableModel)this.tablaVenta.getModel();
+        this.jLabel12.setVisible(false);
+        this.jLabel13.setVisible(false);
+    }
+
+    public void programarShortcuts() {
+        /*
+            Herramientas.In2ActionX(form, KeyEvent.VK_F3    , "buscar"    ) { form.txtCaptura.requestFocusInWindow()  }
+            Herramientas.In2ActionX(form, KeyEvent.VK_ESCAPE, "cerrar"    ) { form.btnCerrar.doClick()                }
+            Herramientas.In2ActionX(form, KeyEvent.VK_F4    , "ventaEsp"  ) { form.btnVentaEspecial.doClick()         }
+            Herramientas.In2ActionX(form, KeyEvent.VK_PAUSE , "pausar"    ) { form.btnPausar.doClick()                }
+            Herramientas.In2ActionX(form, KeyEvent.VK_F12   , "cancelar"  ) { form.btnCancelacion.doClick()           }
+            Herramientas.In2ActionX(form, KeyEvent.VK_F7    , "cancelaArt") { form.btnCancelaArt.doClick()            }
+            Herramientas.In2ActionX(form, KeyEvent.VK_F5    , "movs"      ) { form.btnMovimientos.doClick()           }
+
+         */
+        Action buscar = new AbstractAction() { public void actionPerformed(ActionEvent e) { txtCaptura.requestFocusInWindow(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), "buscar");
+        getActionMap().put("buscar"                 , buscar  );
+
+        Action cerrar = new AbstractAction() { public void actionPerformed(ActionEvent e) { btnCerrar.doClick(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cerrar");
+        getActionMap().put("cerrar", cerrar);
+
+        Action ventaEsp = new AbstractAction() { public void actionPerformed(ActionEvent e) { btnVentaEspecial.doClick(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), "ventaEsp");
+        getActionMap().put("ventaEsp" , ventaEsp);
+
+        Action pausar = new AbstractAction() { public void actionPerformed(ActionEvent e) { btnPausar.doClick(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_PAUSE, 0), "pausar");
+        getActionMap().put("pausar" , pausar);
+
+        Action cancelar = new AbstractAction() { public void actionPerformed(ActionEvent e) { btnCancelacion.doClick(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), "cancelar");
+        getActionMap().put("cancelar", cancelar);
+
+        Action cancelaArt = new AbstractAction() { public void actionPerformed(ActionEvent e) { btnCancelaArt.doClick(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F7, 0), "cancelaArt");
+        getActionMap().put("cancelaArt", cancelaArt);
+
+        Action movs = new AbstractAction() { public void actionPerformed(ActionEvent e) { btnMovimientos.doClick(); } };
+        getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), "movs");
+        getActionMap().put("movs"                 , movs  );
+    }
+    public void paintComponent(Graphics g)
+    {
+      Graphics2D g2d = (Graphics2D) g;
+      g2d.drawImage(fondo, 0, 0, null);
+
+    }
+    
+    public void generarFondo(Component componente)
+    {
+      Rectangle areaDibujo = this.getBounds();
+      BufferedImage tmp;
+      GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+
+      tmp = gc.createCompatibleImage(areaDibujo.width, areaDibujo.height,BufferedImage.TRANSLUCENT);
+      Graphics2D g2d = (Graphics2D) tmp.getGraphics();
+      g2d.setColor(new Color(55,55,255,165));
+      g2d.fillRect(0,0,areaDibujo.width,areaDibujo.height);
+      fondo = tmp;
+    }
+
+    /* This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        btnCerrar = new javax.swing.JButton();
+        txtCaja = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaVenta = new javax.swing.JTable();
+        btnTerminar = new javax.swing.JButton();
+        btnCatalogo = new javax.swing.JButton();
+        btnCancelacion = new javax.swing.JButton();
+        txtCaptura = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btnCancelaArt = new javax.swing.JButton();
+        txtFecha = new javax.swing.JLabel();
+        txtDescuento = new javax.swing.JLabel();
+        btnMovimientos = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtNArticulos = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtSubtotal = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtEfectivo = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtCambio = new javax.swing.JTextField();
+        btnPausar = new javax.swing.JButton();
+        btnVentaEspecial = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        txtImpuesto = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+
+        setFocusable(false);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/shopping_cart.png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(1024, 768));
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(1000, 600));
+        setRequestFocusEnabled(false);
+
+        btnCerrar.setFont(new java.awt.Font("Arial", 0, 14));
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/back.png"))); // NOI18N
+        btnCerrar.setText("Cerrar [Esc]");
+        btnCerrar.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnCerrar.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnCerrar.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnCerrar.setPreferredSize(new java.awt.Dimension(200, 30));
+        btnCerrar.setRequestFocusEnabled(false);
+
+        txtCaja.setFont(new java.awt.Font("Arial", 1, 36));
+        txtCaja.setForeground(new java.awt.Color(255, 255, 255));
+        txtCaja.setText("Caja");
+        txtCaja.setFocusable(false);
+
+        tablaVenta.setFont(new java.awt.Font("Arial", 0, 18));
+        tablaVenta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Artículo", "Concepto", "Cantidad", "Precio", "Descuento", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaVenta.setFocusable(false);
+        tablaVenta.setRowHeight(20);
+        tablaVenta.setRowMargin(0);
+        jScrollPane1.setViewportView(tablaVenta);
+
+        btnTerminar.setFont(new java.awt.Font("Arial", 0, 14));
+        btnTerminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/accept.png"))); // NOI18N
+        btnTerminar.setText("<html>Terminar Venta <br> [Enter]<html>");
+        btnTerminar.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnTerminar.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnTerminar.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnTerminar.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        btnCatalogo.setFont(new java.awt.Font("Arial", 0, 14));
+        btnCatalogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/page_search.png"))); // NOI18N
+        btnCatalogo.setText("Buscar Artículo [F1]");
+        btnCatalogo.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnCatalogo.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnCatalogo.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnCatalogo.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        btnCancelacion.setFont(new java.awt.Font("Arial", 0, 14));
+        btnCancelacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/shopping_cart_remove.png"))); // NOI18N
+        btnCancelacion.setText("Cancelar Venta [F12]");
+        btnCancelacion.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnCancelacion.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnCancelacion.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnCancelacion.setPreferredSize(new java.awt.Dimension(200, 30));
+        btnCancelacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelacionActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Captura [F3] :");
+        jLabel4.setFocusable(false);
+
+        btnCancelaArt.setFont(new java.awt.Font("Arial", 0, 14));
+        btnCancelaArt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/remove.png"))); // NOI18N
+        btnCancelaArt.setText("Cancelar Artículo [F7]");
+        btnCancelaArt.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnCancelaArt.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnCancelaArt.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnCancelaArt.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        txtFecha.setBackground(new java.awt.Color(153, 51, 0));
+        txtFecha.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtFecha.setForeground(new java.awt.Color(255, 255, 255));
+        txtFecha.setFocusable(false);
+
+        txtDescuento.setBackground(new java.awt.Color(153, 51, 0));
+        txtDescuento.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtDescuento.setForeground(new java.awt.Color(255, 255, 255));
+        txtDescuento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtDescuento.setText("$ 0.00");
+        txtDescuento.setFocusable(false);
+
+        btnMovimientos.setFont(new java.awt.Font("Arial", 0, 14));
+        btnMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/attachment.png"))); // NOI18N
+        btnMovimientos.setText("Movimientos Caja [F5]");
+        btnMovimientos.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnMovimientos.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnMovimientos.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnMovimientos.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Cliente");
+        jLabel12.setMaximumSize(new java.awt.Dimension(80, 10));
+        jLabel12.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel12.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        jLabel13.setBackground(new java.awt.Color(153, 51, 0));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 20));
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Público en general");
+        jLabel13.setFocusable(false);
+        jLabel13.setMaximumSize(new java.awt.Dimension(220, 25));
+        jLabel13.setMinimumSize(new java.awt.Dimension(190, 25));
+        jLabel13.setPreferredSize(new java.awt.Dimension(195, 25));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Artículos");
+        jLabel10.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel10.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel10.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        txtNArticulos.setBackground(new java.awt.Color(153, 51, 0));
+        txtNArticulos.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtNArticulos.setForeground(new java.awt.Color(255, 255, 255));
+        txtNArticulos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNArticulos.setText("0");
+        txtNArticulos.setFocusable(false);
+        txtNArticulos.setMaximumSize(new java.awt.Dimension(220, 25));
+        txtNArticulos.setMinimumSize(new java.awt.Dimension(190, 25));
+        txtNArticulos.setPreferredSize(new java.awt.Dimension(195, 25));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Subtotal");
+        jLabel16.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel16.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel16.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        txtSubtotal.setBackground(new java.awt.Color(153, 51, 0));
+        txtSubtotal.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtSubtotal.setForeground(new java.awt.Color(255, 255, 255));
+        txtSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtSubtotal.setText("$ 0.00");
+        txtSubtotal.setFocusable(false);
+        txtSubtotal.setMaximumSize(new java.awt.Dimension(220, 25));
+        txtSubtotal.setMinimumSize(new java.awt.Dimension(190, 25));
+        txtSubtotal.setPreferredSize(new java.awt.Dimension(195, 25));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Total");
+        jLabel8.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel8.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel8.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        txtTotal.setBackground(new java.awt.Color(153, 51, 0));
+        txtTotal.setFont(new java.awt.Font("Arial", 1, 36));
+        txtTotal.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTotal.setText("$ 0.00");
+        txtTotal.setFocusable(false);
+        txtTotal.setMaximumSize(new java.awt.Dimension(190, 50));
+        txtTotal.setMinimumSize(new java.awt.Dimension(190, 50));
+        txtTotal.setPreferredSize(new java.awt.Dimension(190, 50));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Efectivo");
+        jLabel9.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel9.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel9.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        txtEfectivo.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtEfectivo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtEfectivo.setBorder(null);
+        txtEfectivo.setMaximumSize(new java.awt.Dimension(220, 25));
+        txtEfectivo.setMinimumSize(new java.awt.Dimension(190, 25));
+        txtEfectivo.setPreferredSize(new java.awt.Dimension(195, 25));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Cambio");
+        jLabel14.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel14.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel14.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        txtCambio.setEditable(false);
+        txtCambio.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtCambio.setForeground(new java.awt.Color(0, 102, 204));
+        txtCambio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCambio.setText("$ 0.00");
+        txtCambio.setBorder(null);
+        txtCambio.setMaximumSize(new java.awt.Dimension(220, 25));
+        txtCambio.setMinimumSize(new java.awt.Dimension(190, 25));
+        txtCambio.setPreferredSize(new java.awt.Dimension(195, 25));
+
+        btnPausar.setFont(new java.awt.Font("Arial", 0, 14));
+        btnPausar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/pause.png"))); // NOI18N
+        btnPausar.setText("Pausar [Pause]");
+        btnPausar.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnPausar.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnPausar.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnPausar.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        btnVentaEspecial.setFont(new java.awt.Font("Arial", 0, 14));
+        btnVentaEspecial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/favorite.png"))); // NOI18N
+        btnVentaEspecial.setText("Venta Especial [F4]");
+        btnVentaEspecial.setMargin(new java.awt.Insets(2, 9, 2, 9));
+        btnVentaEspecial.setMaximumSize(new java.awt.Dimension(250, 35));
+        btnVentaEspecial.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnVentaEspecial.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("+ Impuestos");
+        jLabel17.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel17.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel17.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        txtImpuesto.setBackground(new java.awt.Color(153, 51, 0));
+        txtImpuesto.setFont(new java.awt.Font("Tahoma", 1, 24));
+        txtImpuesto.setForeground(new java.awt.Color(255, 255, 255));
+        txtImpuesto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtImpuesto.setText("$ 0.00");
+        txtImpuesto.setFocusable(false);
+        txtImpuesto.setMaximumSize(new java.awt.Dimension(220, 29));
+        txtImpuesto.setMinimumSize(new java.awt.Dimension(190, 25));
+        txtImpuesto.setPreferredSize(new java.awt.Dimension(195, 25));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("- Descuento");
+        jLabel18.setMaximumSize(new java.awt.Dimension(85, 12));
+        jLabel18.setMinimumSize(new java.awt.Dimension(80, 10));
+        jLabel18.setPreferredSize(new java.awt.Dimension(80, 10));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTerminar, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(txtCaja)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(txtNArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEfectivo, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCambio, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCaptura, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(btnCatalogo, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnPausar, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(btnVentaEspecial, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCancelacion, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(btnCancelaArt, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCaja)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtCaptura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelaArt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVentaEspecial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPausar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnTerminar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(36, 36, 36))))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelacionActionPerformed
+        // TODO add your handling code here:
+        this.btnCerrar.doClick();
+    }//GEN-LAST:event_btnCancelacionActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelaArt;
+    private javax.swing.JButton btnCancelacion;
+    public javax.swing.JButton btnCatalogo;
+    private javax.swing.JButton btnCerrar;
+    public javax.swing.JButton btnMovimientos;
+    private javax.swing.JButton btnPausar;
+    public javax.swing.JButton btnTerminar;
+    public javax.swing.JButton btnVentaEspecial;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable tablaVenta;
+    private javax.swing.JLabel txtCaja;
+    public javax.swing.JTextField txtCambio;
+    public javax.swing.JTextField txtCaptura;
+    private javax.swing.JLabel txtDescuento;
+    public javax.swing.JTextField txtEfectivo;
+    public javax.swing.JLabel txtFecha;
+    private javax.swing.JLabel txtImpuesto;
+    private javax.swing.JLabel txtNArticulos;
+    private javax.swing.JLabel txtSubtotal;
+    private javax.swing.JLabel txtTotal;
+    // End of variables declaration//GEN-END:variables
+
+}
