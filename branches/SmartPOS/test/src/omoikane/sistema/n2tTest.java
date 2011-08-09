@@ -39,7 +39,9 @@ public class n2tTest {
         System.out.println(n.aCifra(212.16));
         System.out.println(n.aCifra(212.17));
         System.out.println(n.aCifra(212.18));
-        System.out.println(n.aCifra(212.19));
+        assertEquals("DOSCIENTOS DOCE  PESOS 18/100 MN", n.aCifra(212.18));
+        System.out.println(n.aCifra(212.9999));
+        assertEquals("DOSCIENTOS TRECE  PESOS 0/100 MN", n.aCifra(212.9999));
     }
 
 }

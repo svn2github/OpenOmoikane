@@ -1,0 +1,651 @@
+<?xml version="1.0"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Remoto Caja 3. Omoikane-Type" product="" version="" jdbc-version="" driver-version="" uuid="9866ca0a-28a5-4b52-80bf-b953b34a9e5b">
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://sfmvaldez.poweredbyclear.com:3308</jdbc-url>
+    <user-name>Jasper</user-name>
+    <user-password>dfcddfcbdfdedfc5dfcddfcbdfdedfc5</user-password>
+    <libraries>
+      <library>
+        <url>file://$PROJECT_DIR$/dist/lib/mysql-connector-java-5.1.16.jar</url>
+      </library>
+    </libraries>
+    <table name="almacenes" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id_almacen" />
+    </table>
+    <table name="anotaciones" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="texto" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <primary-key name="PRIMARY" columns="id_almacen,id_articulo" />
+      <foreign-key name="fk_almacen" columns="id_almacen" ref-table="almacenes" ref-schema="" ref-catalog="omoikane" ref-columns="id_almacen" cascade-update="true" cascade-remove="true" />
+      <foreign-key name="fk_articulo" columns="id_articulo" ref-table="articulos" ref-schema="" ref-catalog="omoikane" ref-columns="id_articulo" cascade-update="true" cascade-remove="true" />
+    </table>
+    <table name="articulos" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="codigo" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="id_linea" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="descripcion" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="unidad" sqlType="VARCHAR" length="8" precision="0" nullable="true" jdbcType="12" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="id_grupo" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_articulo" />
+      <index name="codigo" unique="true" columns="codigo" />
+    </table>
+    <table name="cajas" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_caja" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_almacen" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="descripcion" sqlType="VARCHAR" length="128" precision="0" nullable="false" jdbcType="12" />
+      <column name="creado" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="horaAbierta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="horaCerrada" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="abierta" sqlType="BIT" length="0" precision="0" nullable="true" jdbcType="-7" />
+      <column name="uFolio" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id_caja" />
+    </table>
+    <table name="clientes" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_cliente" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="RFC" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1" />
+      <column name="razonSocial" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="direccion" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="telefono" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="cp" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="saldo" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="razon_social" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id_cliente" />
+    </table>
+    <table name="codigos_articulos" schema="" catalog="omoikane" type="TABLE">
+      <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="articulo_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="FKB5B681F3BFFD8C1C" unique="false" columns="articulo_id" />
+      <index name="Index_3" unique="false" columns="id_articulo" />
+      <index name="Index_4" unique="false" columns="codigo" />
+    </table>
+    <table name="cortes" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_corte" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_caja" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="fecha_hora" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="subtotal" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="descuentos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="n_ventas" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="desde" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hasta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="depositos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="retiros" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="folio_inicial" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <column name="folio_final" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id_corte,id_caja,id_almacen" />
+      <index name="Index_2" unique="false" columns="fecha_hora" />
+      <index name="Index_2" unique="false" columns="id_caja" />
+      <index name="Index_2" unique="false" columns="id_almacen" />
+      <index name="Index_3" unique="false" columns="fecha_hora" />
+      <index name="Index_3" unique="false" columns="id_caja" />
+      <index name="Index_4" unique="false" columns="fecha_hora" />
+    </table>
+    <table name="cortes_dual" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_corte" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_caja" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="fecha_hora" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="subtotal" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="descuentos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="n_ventas" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="desde" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hasta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="depositos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="retiros" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="folio_inicial" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <column name="folio_final" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id_corte,id_caja,id_almacen" />
+      <index name="Index_2" unique="false" columns="id_caja" />
+      <index name="Index_3" unique="false" columns="id_caja" />
+      <index name="Index_3" unique="false" columns="id_almacen" />
+      <index name="Index_3" unique="false" columns="fecha_hora" />
+      <index name="Index_4" unique="false" columns="id_caja" />
+      <index name="Index_4" unique="false" columns="fecha_hora" />
+      <index name="Index_5" unique="false" columns="fecha_hora" />
+    </table>
+    <table name="cortes_sucursal" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_corte" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_almacen" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="creacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="desde" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hasta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="depositos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="retiros" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <primary-key name="PRIMARY" columns="id_corte" />
+      <index name="Index_2" unique="false" columns="desde" />
+      <index name="Index_2" unique="false" columns="hasta" />
+      <index name="Index_3" unique="false" columns="id_almacen" />
+      <index name="Index_3" unique="false" columns="desde" />
+      <index name="Index_3" unique="false" columns="hasta" />
+    </table>
+    <table name="existencias" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="cantidad" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_almacen,id_articulo" />
+      <index name="Index_2" unique="false" columns="id_articulo" />
+    </table>
+    <table name="facturas" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_factura" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_cliente" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="fecha" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="usuario_expidio" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="subtotal" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="cancelada" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
+      <column name="usuario_cancelo" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <primary-key name="PRIMARY" columns="id_factura" />
+    </table>
+    <table name="grupos" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_grupo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="u_modificacion" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <index name="Index_1" unique="false" columns="id_grupo" />
+    </table>
+    <table name="lineas" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_linea" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_linea" />
+    </table>
+    <table name="lineas_dual" schema="" catalog="omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_linea" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="version" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="memventasxarticuloxmes" schema="" catalog="omoikane" type="TABLE">
+      <column name="mes" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="descripcion" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="id_linea" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="id_grupo" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <primary-key name="PRIMARY" columns="mes,id_articulo" />
+    </table>
+    <table name="memventasxgrupoxdia" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_grupo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <primary-key name="PRIMARY" columns="id_grupo,fecha" />
+    </table>
+    <table name="memventasxgrupoxmes" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_grupo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <primary-key name="PRIMARY" columns="id_grupo,fecha" />
+    </table>
+    <table name="movimientos_almacen" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_almacen" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_movimiento" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="tipo" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="monto" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="folio" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="creacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id_movimiento" />
+    </table>
+    <table name="movimientos_almacen_detalles" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_movimiento" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_articulo" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="cantidad" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="costo" sqlType="DOUBLE UNSIGNED" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="id_detalle" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_almacen" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_detalle" />
+    </table>
+    <table name="movimientos_cortes" schema="" catalog="omoikane" type="TABLE">
+      <column name="tipo" sqlType="ENUM" length="10" precision="0" nullable="false" jdbcType="1" />
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_almacen" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_caja" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_cajero" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="momento" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="importe" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="id_usuario" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="tipo,id" />
+    </table>
+    <table name="movimientoscortes" schema="" catalog="omoikane" type="TABLE">
+      <column name="tipo" sqlType="ENUM" length="10" precision="0" nullable="false" jdbcType="1" />
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_almacen" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_caja" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_cajero" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="momento" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="cantidad" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="id_usuario" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="tipo,id" />
+    </table>
+    <table name="paquetes" schema="" catalog="omoikane" type="TABLE">
+      <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="articulo_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="cantidad" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="FK45341AF2BFFD8C1C" columns="articulo_id" ref-table="articulos" ref-schema="" ref-catalog="omoikane" ref-columns="id_articulo" />
+    </table>
+    <table name="pr3" schema="" catalog="omoikane" type="TABLE">
+      <column name="ooo" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <primary-key name="PRIMARY" columns="ooo" />
+    </table>
+    <table name="precios" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_precio" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="costo" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="utilidad" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_precio" />
+      <index name="FKED0041EDBA11A89C" unique="false" columns="id_articulo" />
+      <index name="FKED0041EDBA11A89C" unique="false" columns="id_almacen" />
+      <index name="Index_3" unique="false" columns="id_articulo" />
+    </table>
+    <table name="preferencias" schema="" catalog="omoikane" type="TABLE">
+      <column name="ID" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="clave" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="valor" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="ramcachearticulos" schema="" catalog="omoikane" type="TABLE">
+      <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="64" precision="0" nullable="false" jdbcType="12" />
+      <column name="costo" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="descripcion" sqlType="VARCHAR" length="64" precision="0" nullable="false" jdbcType="12" />
+      <column name="id_linea" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="linea" sqlType="VARCHAR" length="64" precision="0" nullable="false" jdbcType="12" />
+      <column name="precio" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="precio_descuento" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="unidad" sqlType="VARCHAR" length="16" precision="0" nullable="false" jdbcType="12" />
+      <column name="utilidad" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="existencias" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="grupo_descuento" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="id_grupo" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="grupo" sqlType="VARCHAR" length="128" precision="0" nullable="true" jdbcType="12" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="Index_2" unique="false" columns="id_articulo" />
+      <index name="Index_3" unique="false" columns="codigo" />
+      <index name="Index_4" unique="false" columns="descripcion" />
+      <index name="Index_5" unique="false" columns="id_grupo" />
+      <index name="Index_6" unique="false" columns="id_linea" />
+      <index name="idx_7" unique="false" columns="codigo" />
+      <index name="idx_7" unique="false" columns="id_articulo" />
+    </table>
+    <table name="ramcachecodigos" schema="" catalog="omoikane" type="TABLE">
+      <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="32" precision="0" nullable="false" jdbcType="12" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="nCodigo" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="Index_2" unique="false" columns="id_articulo" />
+      <index name="Index_3" unique="false" columns="codigo" />
+      <index name="idx_4" unique="false" columns="codigo" />
+      <index name="idx_4" unique="false" columns="id_articulo" />
+    </table>
+    <table name="sincronizacion" schema="" catalog="omoikane" type="TABLE">
+      <column name="tabla" sqlType="VARCHAR" length="32" precision="0" nullable="false" jdbcType="12" />
+      <column name="uModificacion" sqlType="VARCHAR" length="14" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="tabla" />
+    </table>
+    <table name="sucursales" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="creacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hAbierta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hCerrada" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="abierta" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_almacen" />
+    </table>
+    <table name="usr_sucursal" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_usuario" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="perfil" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id_usuario,id_almacen" />
+    </table>
+    <table name="usuarios" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_usuario" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="fecha_hora_alta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="nombre" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="huella1" sqlType="BLOB" length="65535" precision="0" nullable="true" jdbcType="-4" />
+      <column name="huella2" sqlType="BLOB" length="65535" precision="0" nullable="true" jdbcType="-4" />
+      <column name="huella3" sqlType="BLOB" length="65535" precision="0" nullable="true" jdbcType="-4" />
+      <column name="nip" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id_usuario" />
+    </table>
+    <table name="ventas" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_venta" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_caja" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_cliente" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="fecha_hora" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="facturada" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="completada" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="eliminar" sqlType="BINARY" length="1" precision="0" nullable="false" jdbcType="-2" />
+      <column name="subtotal" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="id_usuario" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="efectivo" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="cambio" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="centecimosredondeados" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="folio" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id_venta,id_caja,id_almacen" />
+      <index name="Index_2" unique="false" columns="fecha_hora" />
+      <index name="Index_3" unique="false" columns="id_venta" />
+      <index name="Index_3" unique="false" columns="id_caja" />
+      <index name="Index_3" unique="false" columns="id_almacen" />
+      <index name="Index_3" unique="false" columns="fecha_hora" />
+    </table>
+    <table name="ventas_detalles" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_renglon" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_venta" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_caja" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_almacen" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_articulo" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="precio" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="cantidad" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="tipo_salida" sqlType="VARCHAR" length="3" precision="0" nullable="true" jdbcType="12" />
+      <column name="subtotal" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="id_linea" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id_renglon,id_venta,id_caja,id_almacen" />
+      <index name="Index_2" unique="false" columns="id_venta" />
+      <index name="Index_3" unique="false" columns="id_articulo" />
+    </table>
+    <table name="ventas_facturadas" schema="" catalog="omoikane" type="TABLE">
+      <column name="id_factura" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_venta" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+    </table>
+    <table name="ventasprecioespecial" schema="" catalog="omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_venta" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_autorizador" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+  </data-source>
+  <data-source source="LOCAL" name="Local. SmartPos-Type" product="MySQL" version="5.5.14" jdbc-version="4.0" driver-version="mysql-connector-java-5.1.16 ( Revision: ${bzr.revision-id} )" uuid="5899b2d0-4f5e-4a31-8b07-66fd3ec492bb">
+    <extra-name-characters>#@</extra-name-characters>
+    <identifier-quote-string>`</identifier-quote-string>
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://localhost/Omoikane</jdbc-url>
+    <user-name>root</user-name>
+    <schema-pattern>omoikane.*</schema-pattern>
+    <default-schemas>omoikane.*</default-schemas>
+    <libraries>
+      <library>
+        <url>file://$PROJECT_DIR$/dist/lib/mysql-connector-java-5.1.16.jar</url>
+      </library>
+    </libraries>
+    <table name="anotacion" schema="" catalog="Omoikane" type="TABLE">
+      <column name="producto_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="texto" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <primary-key name="PRIMARY" columns="producto_id" />
+      <foreign-key name="fk_producto" columns="producto_id" ref-table="producto" ref-schema="" ref-catalog="Omoikane" ref-columns="id" cascade-update="true" cascade-remove="true" />
+    </table>
+    <table name="caja" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="corte_sucursal_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="descripcion" sqlType="VARCHAR" length="128" precision="0" nullable="false" jdbcType="12" />
+      <column name="creacion" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="fk_cajas_cortes1" columns="id,corte_sucursal_id" ref-table="corte" ref-schema="" ref-catalog="Omoikane" ref-columns="id_caja,corte_sucursal_id" />
+    </table>
+    <table name="cliente" schema="" catalog="Omoikane" type="TABLE">
+      <column name="cliente_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="nombre" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1" />
+      <column name="descuento" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="saldo" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="creacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="actualizacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="cliente_id" />
+    </table>
+    <table name="codigo_producto" schema="" catalog="Omoikane" type="TABLE">
+      <column name="producto_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="fk_codigos_articulos_productos1" columns="producto_id" ref-table="producto" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <index name="Index_3" unique="false" columns="producto_id" />
+      <index name="Index_4" unique="false" columns="codigo" />
+    </table>
+    <table name="corte" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id_caja" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="corte_sucursal_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="subtotal" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="impuestos" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="descuentos" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="total" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="n_ventas" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="desde" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hasta" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="depositos" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="retiros" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="hora" sqlType="TIME" length="8" precision="0" nullable="false" jdbcType="92" />
+      <column name="abierto" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
+      <primary-key name="PRIMARY" columns="id_caja,corte_sucursal_id" />
+      <foreign-key name="fk_cortes_cortes_sucursal1" columns="corte_sucursal_id" ref-table="corte_sucursal" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <index name="Index_2" unique="false" columns="id_caja" />
+      <index name="Index_3" unique="false" columns="id_caja" />
+    </table>
+    <table name="corte_sucursal" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="creacion" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="desde" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hasta" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="depositos" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="retiros" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="Index_2" unique="false" columns="desde" />
+      <index name="Index_2" unique="false" columns="hasta" />
+      <index name="Index_3" unique="false" columns="desde" />
+      <index name="Index_3" unique="false" columns="hasta" />
+    </table>
+    <table name="grupo" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="descuento" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="modificado" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="creado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="Index_1" unique="false" columns="id" />
+    </table>
+    <table name="linea" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="descuento" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="modificado" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="creado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="movimiento_almacen" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="descripcion" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="tipo" sqlType="ENUM" length="8" precision="0" nullable="false" jdbcType="1" />
+      <column name="monto" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="hora" sqlType="TIME" length="8" precision="0" nullable="false" jdbcType="92" />
+      <column name="folio" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="creado" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="modificado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="movimiento_almacen_detalle" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="movimiento_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="producto_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="cantidad" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="costo" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="fk_movimientos_almacen_detalles_movimientos_almacen1" columns="producto_id" ref-table="movimiento_almacen" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="fk_movimientos_almacen_detalles_productos1" columns="producto_id" ref-table="producto" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+    </table>
+    <table name="movimiento_corte" schema="" catalog="Omoikane" type="TABLE">
+      <column name="corte_id_caja" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="corte_sucursal_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="tipo" sqlType="ENUM" length="10" precision="0" nullable="false" jdbcType="1" />
+      <column name="cajero_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="usuario_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="hora" sqlType="TIME" length="8" precision="0" nullable="false" jdbcType="92" />
+      <column name="importe" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <primary-key name="PRIMARY" columns="corte_id_caja,corte_sucursal_id" />
+      <foreign-key name="fk_movimientos_cortes_cortes1" columns="corte_id_caja,corte_sucursal_id" ref-table="corte" ref-schema="" ref-catalog="Omoikane" ref-columns="id_caja,corte_sucursal_id" />
+      <foreign-key name="fk_movimientos_cortes_usuarios1" columns="cajero_id" ref-table="usuario" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="fk_movimientos_cortes_usuarios2" columns="usuario_id" ref-table="usuario" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+    </table>
+    <table name="paquete" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="producto_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="cantidad" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="64" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="FK45341AF2BFFD8C1C" columns="producto_id" ref-table="producto" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+    </table>
+    <table name="preferencia" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="clave" sqlType="TEXT" length="65535" precision="0" nullable="false" jdbcType="-1" />
+      <column name="valor" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="producto" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="linea_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="grupo_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="codigo" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="descripcion" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="unidad" sqlType="VARCHAR" length="8" precision="0" nullable="true" jdbcType="12" />
+      <column name="impuestos" sqlType="DECIMAL" length="10" precision="2" nullable="true" jdbcType="3" />
+      <column name="modificado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="costo" sqlType="DECIMAL" length="10" precision="2" nullable="true" jdbcType="3" />
+      <column name="descuento" sqlType="DECIMAL UNSIGNED" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="utilidad" sqlType="DECIMAL UNSIGNED" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="existencia" sqlType="DECIMAL UNSIGNED" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="creado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="fk_productos_grupos1" columns="grupo_id" ref-table="grupo" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="fk_productos_lineas1" columns="linea_id" ref-table="linea" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <index name="codigo" unique="true" columns="codigo" />
+    </table>
+    <table name="usuario" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="fecha_hora_alta" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="nombre" sqlType="VARCHAR" length="64" precision="0" nullable="true" jdbcType="12" />
+      <column name="huella1" sqlType="BLOB" length="65535" precision="0" nullable="true" jdbcType="-4" />
+      <column name="huella2" sqlType="BLOB" length="65535" precision="0" nullable="true" jdbcType="-4" />
+      <column name="huella3" sqlType="BLOB" length="65535" precision="0" nullable="true" jdbcType="-4" />
+      <column name="nip" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="uModificacion" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="venta" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="caja_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="cliente_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="usuario_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="corte_sucursal_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="facturada" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="completada" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="eliminar" sqlType="BINARY" length="1" precision="0" nullable="false" jdbcType="-2" />
+      <column name="subtotal" sqlType="DECIMAL" length="10" precision="2" nullable="true" jdbcType="3" />
+      <column name="descuento" sqlType="DECIMAL" length="10" precision="2" nullable="true" jdbcType="3" />
+      <column name="impuestos" sqlType="DECIMAL" length="10" precision="2" nullable="true" jdbcType="3" />
+      <column name="total" sqlType="DECIMAL" length="10" precision="2" nullable="true" jdbcType="3" />
+      <column name="efectivo" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="cambio" sqlType="DECIMAL" length="10" precision="2" nullable="false" jdbcType="3" />
+      <column name="folio" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <column name="fecha" sqlType="DATE" length="10" precision="0" nullable="false" jdbcType="91" />
+      <column name="hora" sqlType="TIME" length="8" precision="0" nullable="false" jdbcType="92" />
+      <column name="creado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="modificado" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="fk_ventas_cajas1" columns="caja_id" ref-table="caja" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="fk_ventas_clientes1" columns="cliente_id" ref-table="cliente" ref-schema="" ref-catalog="Omoikane" ref-columns="cliente_id" />
+      <foreign-key name="fk_ventas_cortes1" columns="caja_id,corte_sucursal_id" ref-table="corte" ref-schema="" ref-catalog="Omoikane" ref-columns="id_caja,corte_sucursal_id" />
+      <index name="idx_caja_fecha" unique="false" columns="caja_id" />
+      <index name="idx_caja_fecha" unique="false" columns="fecha" />
+    </table>
+    <table name="venta_detalle" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="venta_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="caja_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="producto_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="precio" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8" />
+      <column name="cantidad" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="tipo_salida" sqlType="VARCHAR" length="3" precision="0" nullable="true" jdbcType="12" />
+      <column name="subtotal" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="impuestos" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="descuento" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="total" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="fk_ventas_detalles_ventas1" columns="venta_id" ref-table="venta" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="fk_ventas_detalles_cajas1" columns="caja_id" ref-table="caja" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="id_producto" columns="producto_id" ref-table="producto" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <index name="Index_2" unique="false" columns="venta_id" />
+      <index name="Index_3" unique="false" columns="caja_id" />
+    </table>
+    <table name="venta_especial" schema="" catalog="Omoikane" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="id_venta" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="id_autorizador" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="usuarios_id_usuario" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id,usuarios_id_usuario" />
+      <foreign-key name="fk_ventasprecioespecial_ventas1" columns="id_venta" ref-table="venta" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+      <foreign-key name="fk_ventasprecioespecial_usuarios1" columns="id_autorizador" ref-table="usuario" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+    </table>
+    <table name="venta_facturada" schema="" catalog="Omoikane" type="TABLE">
+      <column name="factura_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="venta_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="venta_id" />
+      <foreign-key name="fk_ventas_facturadas_ventas1" columns="venta_id" ref-table="venta" ref-schema="" ref-catalog="Omoikane" ref-columns="id" />
+    </table>
+  </data-source>
+</component>
