@@ -9,11 +9,23 @@ package omoikane.sistema.cortes;
  *
  * @author Octavio
  */
-public interface EstrategiasCorte {
-    public def hacerCorteCaja(IDCaja, IDAlmacen, subtotal, impuestos, descuento, total,
+public abstract class EstrategiasCorte {
+    private abstract def hacerCorteCaja(IDCaja, IDAlmacen, subtotal, impuestos, descuento, total,
                                      nVentas, desde, hasta, depositos, retiros);
-    public def obtenerSumaCaja(IDCaja, horaAbierta, horaCerrada);
-    public def hacerCorteSucursal(IDAlmacen);
-    public def obtenerSumaSucursal(IDAlmacen, IDCorte);
-    public def imprimirCorteSucursal(IDAlmacen, IDCorte);
+    public abstract def obtenerSumaCaja(IDCaja, horaAbierta, horaCerrada);
+    private abstract def hacerCorteSucursal(IDAlmacen);
+    public abstract def obtenerSumaSucursal(IDAlmacen, IDCorte);
+    public abstract def imprimirCorteSucursal(IDAlmacen, IDCorte);
+
+    public Boolean isCajaAbierta(Integer idCaja) {
+      throw new UnsupportedOperationException("No implementado");
+    }
+
+    public Boolean abrirCaja(Integer idCaja) {
+      throw new UnsupportedOperationException("No implementado");
+    }
+
+    public Boolean cerrarCaja(Integer idCaja) {
+      throw new UnsupportedOperationException("No implementado");
+    }
 }

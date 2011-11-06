@@ -202,18 +202,19 @@ class Cortes {
     {
         if(cerrojo(PMA_TOTALVENTASUCURSAL)) {
             def paso = 1
+            Sucursales sucursalesHelper = new Sucursales();
             switch(paso) {
                 case 1:
-                    if(Sucursales.existe(IDAlmacen)) { paso = 2 } else { Dialogos.lanzarAlerta("Sucursal inválida, probablemente sea error de configuración!"); break; }
+                    //if(sucursalesHelper.existe(IDAlmacen)) { paso = 2 } else { Dialogos.lanzarAlerta("Sucursal inválida, probablemente sea error de configuración!"); break; }
                     //break;
                 case 2:
-                    def abierta = Sucursales.abierta(IDAlmacen)
+                    def abierta = sucursalesHelper.isAbierta(IDAlmacen)
                     if(abierta==1) { paso = 3 } else { Dialogos.lanzarAlerta("Sucursal inhabilitada, no se han iniciado ventas o hay un corte pendiente."); break }
                 case 3:
-                    def cajasCerradas = Sucursales.cajasSucursalCerradas(IDAlmacen)
+                    def cajasCerradas = sucursalesHelper.cajasSucursalCerradas(IDAlmacen)
                     if(cajasCerradas) { paso = 4 } else { Dialogos.lanzarAlerta("No se puede continuar. Hay cajas abiertas, debe cerrarlas para continuar."); break }
                 case 4:
-                    Sucursales.cerrar(IDAlmacen)
+                    sucursalesHelper.cerrar(IDAlmacen)
 
                     def cortes = ContextoCorte.instanciar()
                     def IDCorte        = cortes.hacerCorteSucursal(IDAlmacen)
@@ -222,40 +223,6 @@ class Cortes {
                     // Aquí mandar a imprimir resultadoCorte (también agregar imprimir en la función anterior (lanzarVentanaCorteSucursal))
                 break
             }
-            /*
-            def serv = Nadesico.conectar()
-            def res  = serv.getCaja(IDCaja);
-            if(res == 0) {Dialogos.lanzarAlerta("No exíste esa caja")} else {
-                if(!serv.cajaAbierta(IDCaja)) {Dialogos.lanzarAlerta("La caja ya estaba cerrada")}
-                def horas      = serv.getCaja(IDCaja)
-                SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy @ hh:mm:ss a ");
-                Calendar         fecha= Calendar.getInstance()
-                if(serv.getCorteWhere("id_caja = $IDCaja AND desde = '${sdf.format(horas.horaAbierta)}' AND hasta = '${sdf.format(horas.horaCerrada)}'")!=0) {
-                    Dialogos.lanzarAlerta("Ya se realizó corte de Caja y no se han hecho ventas desde el último corte de caja")
-                } else {
-                    if(cortar) { serv.cerrarCaja(IDCaja) }
-                    horas = serv.getCaja(IDCaja)
-                    def ventas= serv.sumaVentas(IDCaja, sdf.format(horas.horaAbierta), sdf.format(horas.horaCerrada))
-                    def form  = Cortes.lanzarVentanaDetalles()
-                    def caja  = serv.getCaja(IDCaja)
-                    def desde = horas.horaAbierta
-                    def hasta = horas.horaCerrada
-                    form.setTxtDescuento     (ventas.descuento as String)
-                    form.setTxtDesde         (sdf2.format(desde) as String)
-                    form.setTxtFecha         (sdf2.format(fecha.getTime()) as String)
-                    form.setTxtHasta         (sdf2.format(hasta) as String)
-                    form.setTxtIDAlmacen     (caja.id_almacen as String)
-                    form.setTxtIDCaja        (IDCaja as String)
-                    //form.setTxtIDCorte       (ventas.id_corte as String)
-                    form.setTxtImpuesto      (ventas.impuestos as String)
-                    form.setTxtNumeroVenta   (ventas.nVentas as String)
-                    form.setTxtSubtotal      (ventas.subtotal as String)
-                    form.setTxtTotal         (ventas.total as String)
-                    if(cortar) { Dialogos.lanzarAlerta(serv.addCorte(IDCaja, caja.id_almacen, ventas.subtotal, ventas.descuento, ventas.impuestos, ventas.total, ventas.nVentas, desde, hasta)) }
-                }
-            }
-            serv.desconectar() */
         }else{Dialogos.lanzarAlerta("Acceso Denegado")}
     }
 

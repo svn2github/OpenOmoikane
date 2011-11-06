@@ -21,7 +21,9 @@ import java.util.Calendar
 import static omoikane.sistema.Usuarios.*
 import static omoikane.sistema.Permisos.*
 import omoikane.sistema.cortes.*
-import omoikane.sistema.excepciones.*;
+import omoikane.sistema.excepciones.*
+ import javax.swing.JOptionPane
+ import omoikane.entities.CorteSucursal;
 
 class Caja implements Serializable {
 
@@ -66,17 +68,12 @@ class Caja implements Serializable {
                     }else{
                         if(serv.cajaAbierta(txtID) != false) { Dialogos.lanzarAlerta("La caja ya estaba abierta!!!")  }else{
                             def caja = serv.getCaja(txtID)
-                            SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            def hAbierta = sdf.format(caja.horaAbierta)
-                            def hCerrada = sdf.format(caja.horaCerrada)
-                            if(serv.getCorteWhere("id_caja = $txtID AND desde = '$hAbierta' AND hasta = '$hCerrada'") == 0 && hAbierta != "2000-01-01 00:00:00") {
-                                Dialogos.lanzarAlerta("Se debe realizar el corte de caja para ésta caja antes de volver a abrirla")
-                            }else{
-                                serv.abrirCaja(txtID)
-                                retorna = true
-                                Dialogos.lanzarAlerta("Se inició la sesión de la caja correctamente")
-                                form.dispose()
-                            }
+
+                            serv.abrirCaja(txtID)
+                            retorna = true
+                            Dialogos.lanzarAlerta("Se inició la sesión de la caja correctamente")
+                            form.dispose()
+
                         }
                     }
                     serv.desconectar() }
@@ -91,29 +88,40 @@ class Caja implements Serializable {
     }
 
 
+    static Boolean abrirSucursal() {
+        if(cerrojo(PMA_ABRIRSUCURSAL)) {
+            if(JOptionPane.showConfirmDialog(null, "¿Habilitar sucursal para realizar ventas?", "Habilitar sucursal para vender", JOptionPane.YES_NO_CANCEL_OPTION)==JOptionPane.YES_OPTION)
+            {
+                Sucursales        sucursales = new Sucursales();
+                Sucursales.ESTADO estado     = sucursales.abrirSucursal();
 
+                if(estado == Sucursales.ESTADO.CORTEPENDIENTE) {
+                    Dialogos.lanzarAlerta("Está pendiente el corte del día anterior, necesita realizarlo para continuar")
+                    return false
+                } else {
+                    Dialogos.lanzarAlerta("Sucursal habilitada para vender!")
+                    return true
+                }
+            } else { return false }
+        }else{
+          Dialogos.lanzarAlerta("La Sucursal esta cerrada y no tiene aun permiso de entrar espere a habilitar para continuar ¨: )");
+          omoikane.principal.Principal.cerrarSesion();
+        }
+    }
 
     static def lanzar() 
     {
-        def abierta = Sucursales.abierta(Principal.IDAlmacen)
+        def abierta = abrirSucursal()
 
-        switch(abierta) {
-            case -1: Dialogos.lanzarAlerta("Configuración de sucursal-almacen errónea."); break;
-            case  0: abierta = Sucursales.abrirSucursal(Principal.IDAlmacen);  //Sin break para continuar
-            case  1:
+        if(abierta) {
+            def serv = Nadesico.conectar()
+            def cajaAbierta = serv.cajaAbierta(IDCaja)
+            serv.desconectar()
 
-                    
-                    if(abierta!=1) { break; }
-                    def serv = Nadesico.conectar()
-                    def cajaAbierta = serv.cajaAbierta(IDCaja)
-                    serv.desconectar()
-                    
-                    Thread.start {
-                        cajaAbierta = cajaAbierta?true:abrirCaja()
-                        if(cajaAbierta) { lanzarCaja() }
-                    }
-                    
-            break;
+            Thread.start {
+                cajaAbierta = cajaAbierta?true:abrirCaja()
+                if(cajaAbierta) { lanzarCaja() }
+            }
         }
     }
 

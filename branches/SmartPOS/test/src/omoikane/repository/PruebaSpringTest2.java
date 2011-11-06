@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -45,9 +46,9 @@ public class PruebaSpringTest2 extends AbstractTransactionalJUnit4SpringContextT
         CorteSucursal corte = new CorteSucursal();
         Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
         corte.setCreacion(timestamp);
-        corte.setDepositos(134d);
+        corte.setDepositos(new BigDecimal(134d));
         corte.setDesde(timestamp);
-        corte.setRetiros(9237d);
+        corte.setRetiros(new BigDecimal(9237d));
         corte.setHasta(timestamp);
 
         pr.save(corte);

@@ -3,6 +3,7 @@ package omoikane.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
+ * Un registro sucursal comienza con el atributo abierto igual a true
  * Created by IntelliJ IDEA.
  * User: octavioruizcastillo
  * Date: 14/07/11
@@ -32,10 +34,16 @@ public class CorteSucursal  {
 
     private Date umodificacion;
 
+    @NotNull
+    private boolean abierto;
+
     @PrePersist
     protected void onCreate() {
         umodificacion = new Date();
         creacion      = new Date();
+        abierto       = true;
+        depositos     = new BigDecimal(0);
+        retiros       = new BigDecimal(0);
     }
 
     @PreUpdate
@@ -115,6 +123,16 @@ public class CorteSucursal  {
 
     public void setRetiros(BigDecimal retiros) {
         this.retiros = retiros;
+    }
+
+    @Column(name = "abierto")
+    @Basic
+    public boolean isAbierto() {
+        return abierto;
+    }
+
+    public void setAbierto(boolean abierto) {
+        this.abierto = abierto;
     }
 
     @Override

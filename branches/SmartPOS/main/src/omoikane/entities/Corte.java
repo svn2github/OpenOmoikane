@@ -265,4 +265,5 @@ public class Corte {
     public void setVentas(Collection<Venta> ventas) {
         this.ventas = ventas;
     }
+
 }

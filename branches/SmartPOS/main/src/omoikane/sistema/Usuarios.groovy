@@ -17,7 +17,11 @@ import java.util.regex.*;
 import java.util.Enumeration;
 import com.griaule.grfingerjava.*;
 import groovy.sql.*;
-import omoikane.principal.*;
+import omoikane.principal.*
+ import java.util.logging.Logger
+ import java.util.logging.Level
+ import org.springframework.beans.factory.annotation.Autowired
+ import omoikane.repository.UsuarioRepo;
 
 public class Usuarios {
     //public Usuario usrActivo = new Usuario();
@@ -46,9 +50,10 @@ public class Usuarios {
               fingerPrint  = new omoikane.formularios.WndLeerHuella(escritorio).getHuella()
             }
 
-            def serv         = Nadesico.conectar()
+            def userSystem   = new Usuarios()
+
             if(Principal.ASEGURADO) {
-                respuesta    = serv.checkFingerPrint(fingerPrint)
+                respuesta    = userSystem.checkFingerPrint(fingerPrint)
             } else {
                 respuesta = [ID:20,huella:"",nombre:"Pruebas",sucursales:["1":4]]
             }
@@ -60,7 +65,6 @@ public class Usuarios {
                 respuesta = [:]
                 respuesta.cerrojo= { return false; }
             }
-            serv.desconectar()
 
             respuesta
     }
@@ -78,5 +82,63 @@ public class Usuarios {
         def escritorio   = omoikane.principal.Principal.escritorio.getFrameEscritorio()
         def fingerPrint  = new omoikane.formularios.WndLeerHuella(escritorio).getHuella()
         return fingerPrint
-    }       
+    }
+
+    @Autowired
+    UsuarioRepo usuarioRepo;
+    def checkFingerPrint(fingerP ) {
+        try {
+            Template        ref1, ref2;
+            ref1            = new Template();
+            ref2            = new Template();
+            MatchingContext checador = null;
+            def autorizado  = false, respuesta = null
+
+            try {
+                checador = new MatchingContext();
+                ref1.setData(fingerP);
+            } catch(grje) {
+                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, "Error al convertir hex a bytes", grje);
+                throw grje
+            }
+
+            def data = [:], usr_suc, mC = null
+
+            try {
+                    def usuarios = usuarioRepo.findAll();
+
+                    try {
+                        usuarios.each {
+                            data['ID']       = it.id;
+                            data['nombre']   = it.nombre;
+
+                            mC = new MatchingContext()
+                            ref2.setData(it.huella1);
+                            if(ref2!=null)  {autorizado = (mC.verify(ref1, ref2));
+                            if(!autorizado) {ref2.setData(it.huella2);  autorizado = (mC.verify(ref1, ref2)); }
+                            if(!autorizado) {ref2.setData(it.huella3);  autorizado = (mC.verify(ref1, ref2)); }
+                            }
+                            if(mC != null)
+                            {
+                                mC.destroy();
+                            }
+                            if(autorizado) {
+                                autorizado = data;
+                                throw new Exception("BREAK")
+                            }
+                        }
+                    } catch(ex)  { if(ex.message != "BREAK") { throw ex } }
+
+                    respuesta = (autorizado)?data:null
+                    return respuesta
+
+            } catch(exc) {
+                Logger.getLogger(Usuarios.getName()).log(Level.SEVERE, "Error al autenticar: ${exc.message}", exc);
+                throw exc
+            }
+        } catch(e) {
+          Logger.getLogger(Usuarios.getName()).log(Level.SEVERE, "Error al identificar usuario", e);
+          throw e
+        }
+    }
 }

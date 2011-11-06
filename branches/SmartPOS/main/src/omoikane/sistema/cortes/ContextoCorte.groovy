@@ -19,7 +19,8 @@ class ContextoCorte {
             if(tipo==TIPO_ESTANDAR) {
                 return (new EstrategiaEstandar())
             } else {
-                return (new EstrategiaDual())
+              throw new UnsupportedOperationException("No soportado desde SmartPos 2");
+                //return (new EstrategiaDual())
             }
 
         }

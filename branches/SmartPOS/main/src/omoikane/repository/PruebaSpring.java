@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -43,9 +44,9 @@ public class PruebaSpring {
             CorteSucursal corte = new CorteSucursal();
             Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
             corte.setCreacion(timestamp);
-            corte.setDepositos(134d);
+            corte.setDepositos(new BigDecimal(134));
             corte.setDesde(timestamp);
-            corte.setRetiros(9237d);
+            corte.setRetiros(new BigDecimal(9237));
             corte.setHasta(timestamp);
 
             repo.save(corte);

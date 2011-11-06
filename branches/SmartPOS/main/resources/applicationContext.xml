@@ -12,6 +12,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 
     <context:component-scan base-package="omoikane.entities"/>
     <bean class="omoikane.repository.PruebaSpring"></bean>
+    <bean class="omoikane.principal.Sucursales"></bean>
+    <bean class="omoikane.sistema.cortes.EstrategiaEstandar"></bean>
 
     <hades:dao-config base-package="omoikane.repository"
                       entity-manager-factory-ref="entityManagerFactory"></hades:dao-config>

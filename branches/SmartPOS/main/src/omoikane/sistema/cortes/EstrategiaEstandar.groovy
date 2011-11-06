@@ -11,7 +11,7 @@ import omoikane.sistema.Comprobantes;
  *
  * @author Octavio
  */
-public class EstrategiaEstandar implements EstrategiasCorte {
+public class EstrategiaEstandar extends EstrategiasCorte {
 
     public def obtenerSumaCaja(IDCaja, horaAbierta, horaCerrada) {
         try {
