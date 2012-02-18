@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -144,39 +143,6 @@ public class Usuario {
             return false;
 
         return true;
-    }
-
-    private Collection<MovimientoCorte> movimientoCortesById;
-
-    @OneToMany(mappedBy = "usuarioByCajeroId")
-    public Collection<MovimientoCorte> getMovimientoCortesById() {
-        return movimientoCortesById;
-    }
-
-    public void setMovimientoCortesById(Collection<MovimientoCorte> movimientoCortesById) {
-        this.movimientoCortesById = movimientoCortesById;
-    }
-
-    private Collection<MovimientoCorte> movimientoCortesById_0;
-
-    @OneToMany(mappedBy = "usuarioByUsuarioId")
-    public Collection<MovimientoCorte> getMovimientoCortesById_0() {
-        return movimientoCortesById_0;
-    }
-
-    public void setMovimientoCortesById_0(Collection<MovimientoCorte> movimientoCortesById_0) {
-        this.movimientoCortesById_0 = movimientoCortesById_0;
-    }
-
-    private Collection<VentaEspecial> ventaEspecialsById;
-
-    @OneToMany(mappedBy = "usuarioByIdAutorizador")
-    public Collection<VentaEspecial> getVentaEspecialsById() {
-        return ventaEspecialsById;
-    }
-
-    public void setVentaEspecialsById(Collection<VentaEspecial> ventaEspecialsById) {
-        this.ventaEspecialsById = ventaEspecialsById;
     }
 
 }
